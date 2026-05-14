@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Anil Kumar M — Senior Apigee Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:       #080c12;
+    --bg2:      #0d1320;
+    --line:     #1e2d45;
+    --cyan:     #00d4ff;
+    --cyan2:    #00a8cc;
+    --green:    #00ff9d;
+    --white:    #f0f4ff;
+    --muted:    #6b7fa3;
+    --card:     #0f1a2e;
+    --fhead:    'Syne', sans-serif;
+    --fmono:    'Space Mono', monospace;
+    --fbody:    'DM Sans', sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--white);font-family:var(--fbody);overflow-x:hidden;cursor:none}
+
+  /* CURSOR */
+  .cur{width:12px;height:12px;background:var(--cyan);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen}
+  .cur-r{width:36px;height:36px;border:1.5px solid var(--cyan);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45;transition:left .15s ease,top .15s ease}
+
+  /* NAV */
+  nav{position:fixed;top:0;width:100%;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 4rem;background:rgba(8,12,18,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+  .logo{font-family:var(--fmono);font-size:.85rem;color:var(--cyan);letter-spacing:.12em}
+  .nav-ul{display:flex;gap:2.5rem;list-style:none}
+  .nav-ul a{font-family:var(--fmono);font-size:.72rem;color:var(--muted);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+  .nav-ul a:hover{color:var(--cyan)}
+
+  /* LAYOUT */
+  .wrap{max-width:1160px;margin:0 auto;padding:7rem 2rem}
+
+  .lbl{font-family:var(--fmono);font-size:.68rem;color:var(--cyan);letter-spacing:.25em;text-transform:uppercase;margin-bottom:.9rem;display:flex;align-items:center;gap:.75rem}
+  .lbl::before{content:'';display:inline-block;width:2rem;height:1px;background:var(--cyan)}
+  h2.st{font-family:var(--fhead);font-size:clamp(2rem,4vw,2.9rem);font-weight:800;color:var(--white);line-height:1.1;margin-bottom:3rem}
+  h2.st span{color:var(--cyan)}
+
+  /* HERO */
+  #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 5rem 4rem;max-width:100%;position:relative;overflow:hidden}
+  .hgrid{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 100%);opacity:.3;pointer-events:none}
+  .hglow{position:absolute;width:550px;height:550px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,.11) 0%,transparent 70%);top:50%;left:60%;transform:translate(-50%,-50%);pointer-events:none;animation:gp 6s ease-in-out infinite}
+  @keyframes gp{0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}}
+  .htag{font-family:var(--fmono);font-size:.75rem;color:var(--green);letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.4rem;animation:fu .6s .2s both}
+  .hname{font-family:var(--fhead);font-size:clamp(3.5rem,8vw,7rem);font-weight:800;line-height:.95;letter-spacing:-.02em;animation:fu .7s .4s both}
+  .hname .l1{color:var(--white);display:block}
+  .hname .l2{color:transparent;-webkit-text-stroke:1.5px var(--cyan);display:block}
+  .hrole{font-family:var(--fmono);font-size:clamp(.82rem,1.4vw,1rem);color:var(--cyan);margin-top:1.5rem;letter-spacing:.06em;animation:fu .7s .6s both}
+  .hdesc{max-width:540px;font-size:1rem;color:var(--muted);line-height:1.78;margin-top:1.4rem;font-weight:300;animation:fu .7s .8s both}
+  .hcta{display:flex;gap:1.2rem;margin-top:2.6rem;animation:fu .7s 1s both;flex-wrap:wrap}
+  .btn1{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.9rem;background:var(--cyan);color:var(--bg);font-family:var(--fmono);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%);transition:background .2s,transform .2s}
+  .btn1:hover{background:var(--green);transform:translateY(-2px)}
+  .btn2{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.9rem;border:1px solid var(--line);color:var(--muted);font-family:var(--fmono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:border-color .2s,color .2s,transform .2s}
+  .btn2:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px)}
+  .hstats{display:flex;gap:3rem;margin-top:3.5rem;animation:fu .7s 1.2s both;flex-wrap:wrap}
+  .sn{font-family:var(--fhead);font-size:2.1rem;font-weight:800;color:var(--cyan);line-height:1}
+  .sn em{color:var(--green);font-style:normal}
+  .sl{font-family:var(--fmono);font-size:.65rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:.2rem}
+  @keyframes fu{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+  /* DIVIDER */
+  .div{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:0 2rem}
+
+  /* SKILLS */
+  .sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.4rem}
+  .sc{background:var(--card);border:1px solid var(--line);padding:1.8rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s}
+  .sc::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--cyan);transform:scaleY(0);transform-origin:bottom;transition:transform .3s}
+  .sc:hover{border-color:var(--cyan2);transform:translateY(-4px)}
+  .sc:hover::before{transform:scaleY(1)}
+  .sci{font-size:1.5rem;margin-bottom:.9rem}
+  .sct{font-family:var(--fhead);font-size:.9rem;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.9rem}
+  .tags{display:flex;flex-wrap:wrap;gap:.45rem}
+  .tag{font-family:var(--fmono);font-size:.62rem;padding:.28rem .65rem;background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.2);color:var(--cyan);letter-spacing:.06em}
+  .tag.g{background:rgba(0,255,157,.07);border-color:rgba(0,255,157,.2);color:var(--green)}
+
+  /* TIMELINE */
+  .tl{position:relative;padding-left:2rem}
+  .tl::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--cyan),var(--line) 85%,transparent)}
+  .ti{position:relative;padding:0 0 3.2rem 3rem;opacity:0;transform:translateX(-18px);transition:opacity .5s,transform .5s}
+  .ti.vis{opacity:1;transform:translateX(0)}
+  .td{position:absolute;left:-6px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--bg);border:2px solid var(--cyan);box-shadow:0 0 10px rgba(0,212,255,.4)}
+  .td.on{background:var(--cyan);animation:dp 2s infinite}
+  @keyframes dp{0%,100%{box-shadow:0 0 8px rgba(0,212,255,.5)}50%{box-shadow:0 0 20px rgba(0,212,255,.9)}}
+  .tmeta{display:flex;align-items:center;gap:.9rem;margin-bottom:.55rem;flex-wrap:wrap}
+  .tdate{font-family:var(--fmono);font-size:.66rem;color:var(--green);letter-spacing:.12em;background:rgba(0,255,157,.07);border:1px solid rgba(0,255,157,.2);padding:.22rem .6rem}
+  .tbadge{font-family:var(--fmono);font-size:.63rem;color:var(--muted);letter-spacing:.08em}
+  .trole{font-family:var(--fhead);font-size:1.35rem;font-weight:800;color:var(--white);line-height:1.2;margin-bottom:.25rem}
+  .tco{font-family:var(--fmono);font-size:.75rem;color:var(--cyan);letter-spacing:.05em;margin-bottom:.15rem}
+  .tcl{font-size:.85rem;color:var(--muted);margin-bottom:1.1rem;font-style:italic}
+  .tbl{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+  .tbl li{font-size:.9rem;color:#8fa3c4;line-height:1.65;padding-left:1.2rem;position:relative}
+  .tbl li::before{content:'▸';position:absolute;left:0;color:var(--cyan);font-size:.72rem;top:.1rem}
+
+  /* PROJECTS */
+  .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.4rem}
+  .pc{background:var(--card);border:1px solid var(--line);padding:1.8rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s;display:flex;flex-direction:column;gap:.9rem}
+  .pc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--green));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+  .pc:hover{border-color:rgba(0,212,255,.35);transform:translateY(-4px)}
+  .pc:hover::after{transform:scaleX(1)}
+  .pn{font-family:var(--fmono);font-size:.65rem;color:var(--cyan);letter-spacing:.15em;opacity:.45}
+  .pt{font-family:var(--fhead);font-size:1.05rem;font-weight:700;color:var(--white)}
+  .pcl{font-family:var(--fmono);font-size:.7rem;color:var(--green);letter-spacing:.08em}
+  .pd{font-size:.88rem;color:var(--muted);line-height:1.7;flex:1}
+
+  /* CONTACT */
+  #contact{text-align:center;position:relative}
+  .cglow{position:absolute;width:500px;height:300px;background:radial-gradient(ellipse,rgba(0,212,255,.07) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+  .csub{font-size:1rem;color:var(--muted);line-height:1.75;max-width:500px;margin:0 auto 2.8rem;font-weight:300}
+  .ccards{display:flex;flex-wrap:wrap;justify-content:center;gap:1.1rem;margin-bottom:2.5rem}
+  .cc{display:flex;align-items:center;gap:.8rem;background:var(--card);border:1px solid var(--line);padding:1rem 1.6rem;text-decoration:none;transition:border-color .2s,transform .2s}
+  .cc:hover{border-color:var(--cyan);transform:translateY(-3px)}
+  .cci{font-size:1.25rem}
+  .ccl{font-family:var(--fmono);font-size:.6rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+  .ccv{font-size:.9rem;color:var(--white);margin-top:.1rem}
+  .avail{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--fmono);font-size:.7rem;color:var(--green);letter-spacing:.1em;border:1px solid rgba(0,255,157,.3);padding:.55rem 1.3rem;background:rgba(0,255,157,.05)}
+  .adot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:dp 2s infinite}
+
+  /* FOOTER */
+  footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--line);font-family:var(--fmono);font-size:.66rem;color:var(--muted);letter-spacing:.1em}
+
+  /* REVEAL */
+  .rev{opacity:0;transform:translateY(28px);transition:opacity .6s,transform .6s}
+  .rev.vis{opacity:1;transform:translateY(0)}
+
+  @media(max-width:768px){
+    nav{padding:1rem 1.5rem}
+    .nav-ul{display:none}
+    #hero{padding:7rem 1.5rem 4rem}
+    .wrap{padding:5rem 1.5rem}
+    .hstats{gap:1.8rem}
+    .div{margin:0 1.5rem}
+    body{cursor:auto}
+    .cur,.cur-r{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<nav>
+  <div class="logo">AK.dev</div>
+  <ul class="nav-ul">
+    <li><a href="#hero">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hgrid"></div>
+  <div class="hglow"></div>
+  <div class="htag">// Senior API Integration Engineer</div>
+  <h1 class="hname">
+    <span class="l1">Anil</span>
+    <span class="l2">Kumar M</span>
+  </h1>
+  <div class="hrole">Apigee X &amp; Edge &nbsp;·&nbsp; API Gateway &nbsp;·&nbsp; Enterprise Integrations</div>
+  <p class="hdesc">Building enterprise-grade API ecosystems that connect complex systems — Workday, Oracle, ServiceNow, and beyond. 6+ years turning integration chaos into clean, secure, scalable APIs.</p>
+  <div class="hcta">
+    <a href="#contact" class="btn1">Get In Touch ↗</a>
+    <a href="#experience" class="btn2">View Experience →</a>
+  </div>
+  <div class="hstats">
+    <div><div class="sn">6<em>+</em></div><div class="sl">Years Experience</div></div>
+    <div><div class="sn">3.6<em>+</em></div><div class="sl">Years Apigee</div></div>
+    <div><div class="sn">3</div><div class="sl">Enterprise Clients</div></div>
+    <div><div class="sn">10<em>+</em></div><div class="sl">APIs Delivered</div></div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- SKILLS -->
+<div class="wrap" id="skills">
+  <div class="lbl">What I Work With</div>
+  <h2 class="st">Technical <span>Skills</span></h2>
+  <div class="sgrid">
+    <div class="sc rev"><div class="sci">⚡</div><div class="sct">API Gateway</div><div class="tags"><span class="tag">Apigee X</span><span class="tag">Apigee Edge</span><span class="tag">API Lifecycle</span><span class="tag">RESTful APIs</span><span class="tag">OpenAPI / Swagger</span></div></div>
+    <div class="sc rev"><div class="sci">🔐</div><div class="sct">API Security</div><div class="tags"><span class="tag">OAuth 2.0</span><span class="tag">JWT</span><span class="tag">TLS / SSL</span><span class="tag">Basic Auth</span><span class="tag">Threat Protection</span><span class="tag">Spike Arrest</span><span class="tag">Rate Limiting</span></div></div>
+    <div class="sc rev"><div class="sci">🔧</div><div class="sct">Apigee Policies</div><div class="tags"><span class="tag">AssignMessage</span><span class="tag">ServiceCallout</span><span class="tag">RaiseFault</span><span class="tag">FlowCallout</span><span class="tag">ExtractVariables</span><span class="tag">MessageValidation</span></div></div>
+    <div class="sc rev"><div class="sci">🔗</div><div class="sct">Integrations</div><div class="tags"><span class="tag g">Workday HCM</span><span class="tag g">Oracle R12</span><span class="tag g">ServiceNow</span><span class="tag g">Windchill</span><span class="tag g">Mendix</span></div></div>
+    <div class="sc rev"><div class="sci">🛠</div><div class="sct">Languages &amp; Data</div><div class="tags"><span class="tag">JavaScript ES6+</span><span class="tag">XML</span><span class="tag">JSON</span><span class="tag">YAML</span></div></div>
+    <div class="sc rev"><div class="sci">🚀</div><div class="sct">DevOps &amp; Monitoring</div><div class="tags"><span class="tag">Azure DevOps</span><span class="tag">GitLab</span><span class="tag">Bitbucket</span><span class="tag">CI/CD</span><span class="tag">Datadog</span><span class="tag">Kibana</span><span class="tag">Postman</span></div></div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- EXPERIENCE -->
+<div class="wrap" id="experience">
+  <div class="lbl">Where I've Worked</div>
+  <h2 class="st">Work <span>Experience</span></h2>
+  <div class="tl">
+
+    <div class="ti">
+      <div class="td on"></div>
+      <div class="tmeta"><span class="tdate">Feb 2025 — Present</span><span class="tbadge">● Current Role</span></div>
+      <div class="trole">Senior Software Engineer</div>
+      <div class="tco">KBC Technologies → Wipro → Trane Technologies</div>
+      <div class="tcl">Client: Trane Technologies, Bangalore</div>
+      <ul class="tbl">
+        <li>Designed and developed 10+ RESTful APIs on Apigee X connecting Workday HCM, Oracle, Windchill, Mendix, ServiceNow, and a Learner platform for cross-system data exchange.</li>
+        <li>Built complex JSON↔XML payload transformations using JavaScript policies with dynamic field mappings to support flexible payload structures across downstream systems.</li>
+        <li>Implemented end-to-end API security: OAuth 2.0, JWT, Basic Auth, TLS, threat protection, schema validation, spike arrest, and rate limiting.</li>
+        <li>Set up real-time monitoring pipelines using Datadog and Kibana, reducing production incident resolution time through proactive alerting.</li>
+        <li>Deployed APIs across dev, staging, and production via Azure DevOps CI/CD following enterprise change management through ServiceNow.</li>
+      </ul>
+      <div class="tags" style="margin-top:1.1rem"><span class="tag">Apigee X</span><span class="tag">Workday HCM</span><span class="tag">OAuth 2.0</span><span class="tag">JavaScript</span><span class="tag">Azure DevOps</span><span class="tag">Datadog</span></div>
+    </div>
+
+    <div class="ti">
+      <div class="td"></div>
+      <div class="tmeta"><span class="tdate">Jun 2023 — Jun 2024</span></div>
+      <div class="trole">Senior Software Engineer</div>
+      <div class="tco">Onward Technologies (Payroll)</div>
+      <div class="tcl">Client: Caterpillar Inc., Bangalore</div>
+      <ul class="tbl">
+        <li>Designed and implemented secure, scalable RESTful APIs on Apigee serving multiple business-critical integrations across enterprise systems.</li>
+        <li>Applied OAuth 2.0, JWT, TLS, IP filtering, and Basic Auth; performed regular security audits to meet compliance standards.</li>
+        <li>Developed policy layers covering XML/JSON transformation, routing, encryption, message validation, and threat protection.</li>
+        <li>Managed API Gateway operations, monitored performance metrics, and proactively resolved production issues.</li>
+      </ul>
+      <div class="tags" style="margin-top:1.1rem"><span class="tag">Apigee Edge</span><span class="tag">OAuth 2.0</span><span class="tag">JWT</span><span class="tag">XML/JSON</span><span class="tag">API Security</span></div>
+    </div>
+
+    <div class="ti">
+      <div class="td"></div>
+      <div class="tmeta"><span class="tdate">Aug 2021 — May 2023</span></div>
+      <div class="trole">Software Engineer</div>
+      <div class="tco">Torry Harris Business Solutions</div>
+      <div class="tcl">Client: EE / BT (British Telecom), UK — Remote</div>
+      <ul class="tbl">
+        <li>Developed RESTful APIs using Apigee Edge for BT/EE's enterprise telecom platform covering authentication, content filtering, and routing.</li>
+        <li>Implemented JWT, OAuth 2.0, SSL, and Basic Authentication; developed fault handling and monitoring to meet enterprise SLA requirements.</li>
+        <li>Built OpenAPI (Swagger) specifications; applied message-size limits, content-type filtering, IP filtering, and schema validation.</li>
+        <li>Deployed APIs across multiple environments via CI/CD pipelines; conducted testing via Postman.</li>
+      </ul>
+      <div class="tags" style="margin-top:1.1rem"><span class="tag">Apigee Edge</span><span class="tag">OpenAPI</span><span class="tag">JWT</span><span class="tag">CI/CD</span><span class="tag">Postman</span></div>
+    </div>
+
+    <div class="ti">
+      <div class="td"></div>
+      <div class="tmeta"><span class="tdate">Oct 2018 — Jun 2021</span></div>
+      <div class="trole">Trainee Engineer — Linux Administrator</div>
+      <div class="tco">PHFL Home Loans and Services Limited</div>
+      <div class="tcl">Client: BCBSNC (Blue Cross Blue Shield NC)</div>
+      <ul class="tbl">
+        <li>Managed RHEL 5/6 and CentOS server infrastructure including LVM-based file system configuration and multipathing setup.</li>
+        <li>Monitored Linux servers for performance degradation; provided L2 support and handled patching activities.</li>
+      </ul>
+      <div class="tags" style="margin-top:1.1rem"><span class="tag">RHEL</span><span class="tag">Linux</span><span class="tag">VMware</span><span class="tag">SFTP</span></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- PROJECTS -->
+<div class="wrap" id="projects">
+  <div class="lbl">Key Deliverables</div>
+  <h2 class="st">Notable <span>Projects</span></h2>
+  <div class="pgrid">
+    <div class="pc rev">
+      <div class="pn">01</div>
+      <div class="pt">Trane HCM Integration Platform</div>
+      <div class="pcl">▸ Trane Technologies — Apigee X</div>
+      <p class="pd">End-to-end Apigee X API layer connecting Workday HCM, Oracle, ServiceNow, Windchill, and Mendix. 10+ APIs handling employee data, worker management, learning systems, and organizational data flows across production environments.</p>
+      <div class="tags"><span class="tag">Apigee X</span><span class="tag">Workday</span><span class="tag">Oracle</span><span class="tag">ServiceNow</span></div>
+    </div>
+    <div class="pc rev">
+      <div class="pn">02</div>
+      <div class="pt">Enterprise API Security Layer</div>
+      <div class="pcl">▸ Caterpillar Inc. — Apigee Edge</div>
+      <p class="pd">Comprehensive API security implementation across Caterpillar's enterprise gateway — OAuth 2.0, JWT, TLS, IP filtering, schema validation, and threat protection policies securing business-critical integrations.</p>
+      <div class="tags"><span class="tag">OAuth 2.0</span><span class="tag">JWT</span><span class="tag">Apigee Edge</span><span class="tag">API Security</span></div>
+    </div>
+    <div class="pc rev">
+      <div class="pn">03</div>
+      <div class="pt">BT/EE Telecom API Platform</div>
+      <div class="pcl">▸ British Telecom — Apigee Edge</div>
+      <p class="pd">Designed and delivered RESTful APIs for BT/EE's enterprise telecom platform with full OpenAPI documentation, content filtering, routing, authentication flows, and CI/CD pipeline deployment for multi-environment releases.</p>
+      <div class="tags"><span class="tag">Apigee Edge</span><span class="tag">OpenAPI</span><span class="tag">Telecom</span><span class="tag">CI/CD</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- CONTACT -->
+<div class="wrap" id="contact">
+  <div class="cglow"></div>
+  <div class="lbl" style="justify-content:center">Let's Connect</div>
+  <h2 class="st" style="text-align:center">Open to <span>Opportunities</span></h2>
+  <p class="csub">Actively seeking full-time, direct employment as an Apigee Developer or API Integration Engineer in Bangalore. Let's talk.</p>
+  <div class="ccards">
+    <a href="mailto:anil039497@gmail.com" class="cc"><div class="cci">✉️</div><div><div class="ccl">Email</div><div class="ccv">anil039497@gmail.com</div></div></a>
+    <a href="tel:+918088235156" class="cc"><div class="cci">📞</div><div><div class="ccl">Phone</div><div class="ccv">+91 8088235156</div></div></a>
+    <a href="https://www.linkedin.com/in/anil-kumar-m-93931627a/" target="_blank" class="cc"><div class="cci">💼</div><div><div class="ccl">LinkedIn</div><div class="ccv">anil-kumar-m</div></div></a>
+    <div class="cc"><div class="cci">📍</div><div><div class="ccl">Location</div><div class="ccv">Bangalore, India</div></div></div>
+  </div>
+  <div class="avail"><div class="adot"></div>Available for full-time roles · Immediate joiner</div>
+</div>
+
+<footer>© 2025 Anil Kumar M &nbsp;·&nbsp; Senior Apigee Developer &nbsp;·&nbsp; Bangalore, India</footer>
+
+<script>
+  // cursor
+  const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+  (function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(anim)})();
+
+  // scroll reveal
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')});
+  },{threshold:.1});
+  document.querySelectorAll('.rev,.ti').forEach((el,i)=>{
+    if(el.classList.contains('rev')) el.style.transitionDelay=(i%6*.08)+'s';
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>
