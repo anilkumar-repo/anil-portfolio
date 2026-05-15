@@ -1,0 +1,33 @@
+changelog:
+  categories:
+    - title: 🚀 Features & Enhancements
+      labels:
+        - enhancement
+        - feature
+
+    - title: 🐛 Bug Fixes
+      labels:
+        - bug
+        - fix
+
+    - title: ⚡ Performance Improvements
+      labels:
+        - performance
+
+    - title: 🔧 CI/CD & Workflow Updates
+      labels:
+        - cicd
+        - github-actions
+
+    - title: 🎨 UI/UX Improvements
+      labels:
+        - ui
+        - ux
+
+    - title: 📚 Documentation
+      labels:
+        - documentation
+
+  exclude:
+    labels:
+      - ignore-for-release
