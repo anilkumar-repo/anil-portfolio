@@ -16,12 +16,13 @@ jobs:
 
   rollback-prod:
     name: Rollback Production
-    if: failure()
+    if: ${{ always() && needs.deploy-prod.result == 'failure' }}
     needs: deploy-prod
     uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/rollback-prod.yml@main
 
   create-release:
     name: Create GitHub Release
+    if: ${{ needs.deploy-prod.result == 'success' }}
     needs: deploy-prod
     runs-on: ubuntu-latest
 
