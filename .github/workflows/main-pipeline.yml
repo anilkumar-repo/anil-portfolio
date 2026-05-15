@@ -1,4 +1,4 @@
-name: Enterprise Portfolio Pipeline
+name: Main CI/CD Pipeline
 
 on:
   push:
@@ -8,27 +8,16 @@ on:
 jobs:
 
   deploy-dev:
+    name: Deploy to Dev
     uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/deploy-dev.yml@main
 
   validate-dev:
+    name: Validate Dev
     needs: deploy-dev
     uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/validate-dev.yml@main
 
   rollback-dev:
+    name: Rollback Dev
     if: failure()
     needs: validate-dev
     uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/rollback-dev.yml@main
-
-  deploy-prod:
-    needs: validate-dev
-    if: success()
-    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/deploy-prod.yml@main
-
-  validate-prod:
-    needs: deploy-prod
-    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/validate-prod.yml@main
-
-  rollback-prod:
-    if: failure()
-    needs: validate-prod
-    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/rollback-prod.yml@main
