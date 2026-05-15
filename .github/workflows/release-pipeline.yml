@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*.*.*'
 
+permissions:
+  contents: write
+
 jobs:
 
   deploy-prod:
@@ -35,13 +38,13 @@ jobs:
             - Enterprise CI/CD pipeline executed
             - Release version validated
 
-            ### Included Changes
+            ### Included Updates
             - UI/UX enhancements
-            - Performance improvements
-            - CI/CD workflow updates
-            - Portfolio optimizations
+            - Workflow optimizations
+            - Portfolio improvements
+            - Performance enhancements
 
-            ### Release Information
+            ### Deployment Information
             - Environment: Production
             - Deployment Strategy: GitHub Actions
             - Release Version: ${{ github.ref_name }}
