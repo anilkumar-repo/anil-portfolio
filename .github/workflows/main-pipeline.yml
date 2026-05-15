@@ -1,0 +1,34 @@
+name: Enterprise Portfolio Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  deploy-dev:
+    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/deploy-dev.yml@main
+
+  validate-dev:
+    needs: deploy-dev
+    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/validate-dev.yml@main
+
+  rollback-dev:
+    if: failure()
+    needs: validate-dev
+    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/rollback-dev.yml@main
+
+  deploy-prod:
+    needs: validate-dev
+    if: success()
+    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/deploy-prod.yml@main
+
+  validate-prod:
+    needs: deploy-prod
+    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/validate-prod.yml@main
+
+  rollback-prod:
+    if: failure()
+    needs: validate-prod
+    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/rollback-prod.yml@main
