@@ -16,3 +16,35 @@ jobs:
     if: failure()
     needs: deploy-prod
     uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/rollback-prod.yml@main
+
+  create-release:
+    name: Create GitHub Release
+    needs: deploy-prod
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          body: |
+            ## Enterprise Portfolio Release
+
+            ### Deployment Summary
+            - Production deployment completed successfully
+            - Enterprise CI/CD pipeline executed
+            - Release version validated
+
+            ### Included Changes
+            - UI/UX enhancements
+            - Performance improvements
+            - CI/CD workflow updates
+            - Portfolio optimizations
+
+            ### Release Information
+            - Environment: Production
+            - Deployment Strategy: GitHub Actions
+            - Release Version: ${{ github.ref_name }}
+
+            ### Author
+            Anil Kumar M
