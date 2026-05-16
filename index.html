@@ -682,6 +682,7 @@ footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--line);fo
         </div>
       </div>
       <button class="cf-btn" id="cf-send" onclick="sendForm()">Send Message ↗</button>
+      <div class="cf-status" id="cf-status"></div>
     </div>
   </div>
 </div>
@@ -1000,25 +1001,8 @@ function sendForm(){
   status.textContent='';
   status.className='cf-status';
 
-  /* Web3Forms — free, no backend, delivers to your email */
-  /* Step: go to web3forms.com → enter anil039497@gmail.com → get access key → replace below */
+  /* Web3Forms — delivers directly to anil039497@gmail.com */
   const ACCESS_KEY='b4d4daa1-0cc1-4e3f-ad2e-d9dc3a88835e';
-
-  if(ACCESS_KEY==='b4d4daa1-0cc1-4e3f-ad2e-d9dc3a88835e'){
-    /* fallback: open native email client pre-filled */
-    const subject=encodeURIComponent('Portfolio Inquiry from '+name);
-    const body=encodeURIComponent('From: '+name+'\nEmail: '+email+'\n\n'+msg);
-    const mailto='mailto:anil039497@gmail.com?subject='+subject+'&body='+body;
-    /* open in new tab so page doesn't navigate away */
-    const a=document.createElement('a');
-    a.href=mailto;a.target='_blank';a.rel='noopener';
-    document.body.appendChild(a);a.click();document.body.removeChild(a);
-    status.textContent='✓ Your email client has opened with the message pre-filled. Just hit Send!';
-    status.className='cf-status ok';
-    btn.textContent='Send Message ↗';
-    btn.disabled=false;
-    return;
-  }
 
   /* Web3Forms API call */
   fetch('https://api.web3forms.com/submit',{
