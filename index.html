@@ -51,8 +51,27 @@ nav{position:fixed;top:0;width:100%;z-index:200;display:flex;align-items:center;
 .hname .l1{color:var(--white);display:block}
 .hname .l2{color:transparent;-webkit-text-stroke:2px var(--cyan);display:block;filter:drop-shadow(0 0 22px rgba(0,212,255,.28))}
 
-.hrole{font-family:var(--fmono);font-size:clamp(.82rem,1.4vw,1rem);color:var(--cyan);margin-top:1.6rem;letter-spacing:.06em;animation:fu .7s .6s both}
+.hrole{font-family:var(--fmono);font-size:clamp(.82rem,1.4vw,1rem);color:var(--cyan);margin-top:1.6rem;letter-spacing:.06em;animation:fu .7s .6s both;min-height:1.4em}
+.typed-cursor{display:inline-block;color:var(--green);animation:blink 1s infinite;margin-left:2px;font-weight:700}
 .hdesc{max-width:560px;font-size:1rem;color:var(--muted);line-height:1.8;margin-top:1.4rem;font-weight:300;animation:fu .7s .8s both}
+
+/* STATS COUNTER */
+.sn{font-family:var(--fhead);font-size:2.2rem;font-weight:800;color:var(--cyan);line-height:1}
+.sn em{color:var(--green);font-style:normal}
+
+/* TECH TICKER */
+.ticker-wrap{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(10,16,28,.8);padding:.7rem 0;position:relative;z-index:10}
+.ticker-wrap::before,.ticker-wrap::after{content:'';position:absolute;top:0;width:120px;height:100%;z-index:2;pointer-events:none}
+.ticker-wrap::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.ticker-wrap::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+.ticker-track{display:flex;width:max-content;animation:ticker 28s linear infinite}
+.ticker-track:hover{animation-play-state:paused}
+.ticker-item{display:flex;align-items:center;gap:.6rem;padding:0 1.8rem;font-family:var(--fmono);font-size:.7rem;color:var(--muted);letter-spacing:.08em;white-space:nowrap;text-transform:uppercase}
+.ticker-item .tk-dot{width:5px;height:5px;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan);flex-shrink:0}
+.ticker-item .tk-dot.g{background:var(--green);box-shadow:0 0 6px var(--green)}
+.ticker-item span{transition:color .2s}
+.ticker-item:hover span{color:var(--cyan)}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* CTA — clip-path chamfer (old) */
 .hcta{display:flex;gap:1.2rem;margin-top:2.6rem;animation:fu .7s 1s both;flex-wrap:wrap;align-items:center}
@@ -180,6 +199,36 @@ nav{position:fixed;top:0;width:100%;z-index:200;display:flex;align-items:center;
 /* FOOTER */
 footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--line);font-family:var(--fmono);font-size:.66rem;color:var(--muted2);letter-spacing:.1em}
 
+/* ═══════ #4 — CURSOR GLOW TRAIL ═══════ */
+.trail-dot{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--cyan);pointer-events:none;z-index:9990;transform:translate(-50%,-50%);mix-blend-mode:screen}
+
+/* ═══════ #5 — SKILL PROGRESS BARS ═══════ */
+.sk-bar-wrap{margin:.5rem 1rem 0;height:3px;background:rgba(0,212,255,.1);border-radius:2px;overflow:hidden}
+.sk-bar{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--green));border-radius:2px;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+
+/* ═══════ #6 — NAV SLIDING PILL ═══════ */
+.nav-pill{position:absolute;height:22px;background:rgba(0,212,255,.12);border:1px solid rgba(0,212,255,.3);border-radius:99px;transition:left .3s cubic-bezier(.34,1.56,.64,1),width .3s cubic-bezier(.34,1.56,.64,1);pointer-events:none;top:50%;transform:translateY(-50%)}
+.nav-ul{position:relative;display:flex;gap:2.5rem;list-style:none}
+
+/* ═══════ #7 — 3D TILT PROJECT CARDS ═══════ */
+.pj{transform-style:preserve-3d;will-change:transform}
+.pj-glass{transition:transform .3s ease}
+
+/* ═══════ #8 — CONTACT FORM ═══════ */
+.contact-form-wrap{margin-top:2.5rem;max-width:560px;margin-left:auto;margin-right:auto}
+.cf-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.cf-field{display:flex;flex-direction:column;gap:.4rem}
+.cf-field.full{grid-column:1/-1}
+.cf-label{font-family:var(--fmono);font-size:.62rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.cf-input,.cf-textarea{background:rgba(10,16,28,.9);border:1px solid var(--line);color:var(--white);font-family:var(--fbody);font-size:.9rem;padding:.75rem 1rem;outline:none;transition:border-color .2s,box-shadow .2s;resize:none;width:100%}
+.cf-input:focus,.cf-textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(0,212,255,.2)}
+.cf-textarea{height:110px}
+.cf-btn{width:100%;padding:.9rem;background:var(--cyan);color:var(--bg);font-family:var(--fmono);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%);transition:background .2s,transform .2s;margin-top:.5rem}
+.cf-btn:hover{background:var(--green);transform:translateY(-2px)}
+.cf-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.cf-status{font-family:var(--fmono);font-size:.7rem;text-align:center;margin-top:.8rem;min-height:1.2em}
+.cf-status.ok{color:var(--green)}.cf-status.err{color:#f87171}
+
 /* MOBILE */
 @media(max-width:900px){
   nav{padding:1rem 1.5rem}.nav-ul{display:none}
@@ -196,6 +245,7 @@ footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--line);fo
   .hstats{gap:1.8rem}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -205,7 +255,8 @@ footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--line);fo
 <!-- NAV -->
 <nav>
   <div class="logo">&lt;/&gt; AK.dev</div>
-  <ul class="nav-ul">
+  <ul class="nav-ul" id="nav-ul">
+    <span class="nav-pill" id="nav-pill"></span>
     <li><a href="#hero" class="act">Home</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
@@ -227,7 +278,7 @@ footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--line);fo
     <span class="l2">Kumar M</span>
   </h1>
 
-  <div class="hrole">Apigee X &amp; Edge &nbsp;·&nbsp; API Gateway &nbsp;·&nbsp; Enterprise Integrations</div>
+  <div class="hrole"><span id="typed"></span><span class="typed-cursor">|</span></div>
 
   <p class="hdesc">Building enterprise-grade API ecosystems that connect complex systems — Workday, Oracle, ServiceNow, and beyond. 6+ years turning integration chaos into clean, secure, scalable APIs.</p>
 
@@ -238,12 +289,59 @@ footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--line);fo
   </div>
 
   <div class="hstats">
-    <div><div class="sn">6<em>+</em></div><div class="sl">Years Experience</div></div>
-    <div><div class="sn">4<em>+</em></div><div class="sl">Years Apigee</div></div>
-    <div><div class="sn">3</div><div class="sl">Enterprise Clients</div></div>
-    <div><div class="sn">10<em>+</em></div><div class="sl">APIs Delivered</div></div>
+    <div><div class="sn" data-target="6" data-suffix="+">0</div><div class="sl">Years Experience</div></div>
+    <div><div class="sn" data-target="4" data-suffix="+">0</div><div class="sl">Years Apigee</div></div>
+    <div><div class="sn" data-target="3" data-suffix="">0</div><div class="sl">Enterprise Clients</div></div>
+    <div><div class="sn" data-target="10" data-suffix="+">0</div><div class="sl">APIs Delivered</div></div>
   </div>
 </section>
+
+<!-- TECH TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="ticker">
+    <div class="ticker-item"><span class="tk-dot"></span><span>Apigee X</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>Workday HCM</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>OAuth 2.0</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>Oracle R12</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>JWT</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>ServiceNow</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>Apigee Edge</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>RESTful APIs</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>Azure DevOps</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>Windchill</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>CI/CD Pipelines</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>Mendix</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>Datadog</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>OpenAPI</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>TLS / SSL</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>JavaScript ES6+</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>Kibana</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>Spike Arrest</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>AssignMessage</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>ServiceCallout</span></div>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-item"><span class="tk-dot"></span><span>Apigee X</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>Workday HCM</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>OAuth 2.0</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>Oracle R12</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>JWT</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>ServiceNow</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>Apigee Edge</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>RESTful APIs</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>Azure DevOps</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>Windchill</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>CI/CD Pipelines</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>Mendix</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>Datadog</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>OpenAPI</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>TLS / SSL</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>JavaScript ES6+</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>Kibana</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>Spike Arrest</span></div>
+    <div class="ticker-item"><span class="tk-dot"></span><span>AssignMessage</span></div>
+    <div class="ticker-item"><span class="tk-dot g"></span><span>ServiceCallout</span></div>
+  </div>
+</div>
 
 <div class="div"></div>
 
@@ -259,11 +357,11 @@ footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--line);fo
           <span class="sk-ico">⚡</span><span class="sk-ttl">API Gateway</span><span class="sk-arr">›</span>
         </div>
         <div class="sk-body">
-          <div class="sk-item"><span class="sk-d"></span>Apigee X</div>
-          <div class="sk-item"><span class="sk-d"></span>Apigee Edge</div>
-          <div class="sk-item"><span class="sk-d"></span>API Lifecycle Management</div>
-          <div class="sk-item"><span class="sk-d"></span>RESTful APIs</div>
-          <div class="sk-item"><span class="sk-d"></span>OpenAPI / Swagger</div>
+          <div class="sk-item"><span class="sk-d"></span>Apigee X<div class="sk-bar-wrap"><div class="sk-bar" data-w="95"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>Apigee Edge<div class="sk-bar-wrap"><div class="sk-bar" data-w="90"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>API Lifecycle Management<div class="sk-bar-wrap"><div class="sk-bar" data-w="88"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>RESTful APIs<div class="sk-bar-wrap"><div class="sk-bar" data-w="92"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>OpenAPI / Swagger<div class="sk-bar-wrap"><div class="sk-bar" data-w="85"></div></div></div>
         </div>
       </div>
 
@@ -272,13 +370,13 @@ footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--line);fo
           <span class="sk-ico">🔐</span><span class="sk-ttl">API Security</span><span class="sk-arr">›</span>
         </div>
         <div class="sk-body">
-          <div class="sk-item"><span class="sk-d"></span>OAuth 2.0</div>
-          <div class="sk-item"><span class="sk-d"></span>JWT</div>
-          <div class="sk-item"><span class="sk-d"></span>TLS / SSL</div>
-          <div class="sk-item"><span class="sk-d"></span>Basic Auth & API Key</div>
-          <div class="sk-item"><span class="sk-d"></span>Threat Protection</div>
-          <div class="sk-item"><span class="sk-d"></span>Spike Arrest</div>
-          <div class="sk-item"><span class="sk-d"></span>Rate Limiting</div>
+          <div class="sk-item"><span class="sk-d"></span>OAuth 2.0<div class="sk-bar-wrap"><div class="sk-bar" data-w="90"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>JWT<div class="sk-bar-wrap"><div class="sk-bar" data-w="88"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>TLS / SSL<div class="sk-bar-wrap"><div class="sk-bar" data-w="85"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>Basic Auth & API Key<div class="sk-bar-wrap"><div class="sk-bar" data-w="92"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>Threat Protection<div class="sk-bar-wrap"><div class="sk-bar" data-w="87"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>Spike Arrest<div class="sk-bar-wrap"><div class="sk-bar" data-w="86"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>Rate Limiting<div class="sk-bar-wrap"><div class="sk-bar" data-w="86"></div></div></div>
         </div>
       </div>
 
@@ -287,12 +385,12 @@ footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--line);fo
           <span class="sk-ico">🔧</span><span class="sk-ttl">Apigee Policies</span><span class="sk-arr">›</span>
         </div>
         <div class="sk-body">
-          <div class="sk-item"><span class="sk-d"></span>AssignMessage</div>
-          <div class="sk-item"><span class="sk-d"></span>ServiceCallout</div>
-          <div class="sk-item"><span class="sk-d"></span>RaiseFault</div>
-          <div class="sk-item"><span class="sk-d"></span>FlowCallout</div>
-          <div class="sk-item"><span class="sk-d"></span>ExtractVariables</div>
-          <div class="sk-item"><span class="sk-d"></span>MessageValidation</div>
+          <div class="sk-item"><span class="sk-d"></span>AssignMessage<div class="sk-bar-wrap"><div class="sk-bar" data-w="95"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>ServiceCallout<div class="sk-bar-wrap"><div class="sk-bar" data-w="90"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>RaiseFault<div class="sk-bar-wrap"><div class="sk-bar" data-w="90"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>FlowCallout<div class="sk-bar-wrap"><div class="sk-bar" data-w="85"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>ExtractVariables<div class="sk-bar-wrap"><div class="sk-bar" data-w="88"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>MessageValidation<div class="sk-bar-wrap"><div class="sk-bar" data-w="85"></div></div></div>
         </div>
       </div>
 
@@ -301,11 +399,11 @@ footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--line);fo
           <span class="sk-ico">🔗</span><span class="sk-ttl">Integrations</span><span class="sk-arr">›</span>
         </div>
         <div class="sk-body">
-          <div class="sk-item"><span class="sk-d g"></span>Workday HCM</div>
-          <div class="sk-item"><span class="sk-d g"></span>Oracle R12</div>
-          <div class="sk-item"><span class="sk-d g"></span>ServiceNow</div>
-          <div class="sk-item"><span class="sk-d g"></span>Windchill</div>
-          <div class="sk-item"><span class="sk-d g"></span>Mendix</div>
+          <div class="sk-item"><span class="sk-d g"></span>Workday HCM<div class="sk-bar-wrap"><div class="sk-bar" data-w="88"></div></div></div>
+          <div class="sk-item"><span class="sk-d g"></span>Oracle R12<div class="sk-bar-wrap"><div class="sk-bar" data-w="82"></div></div></div>
+          <div class="sk-item"><span class="sk-d g"></span>ServiceNow<div class="sk-bar-wrap"><div class="sk-bar" data-w="80"></div></div></div>
+          <div class="sk-item"><span class="sk-d g"></span>Windchill<div class="sk-bar-wrap"><div class="sk-bar" data-w="78"></div></div></div>
+          <div class="sk-item"><span class="sk-d g"></span>Mendix<div class="sk-bar-wrap"><div class="sk-bar" data-w="75"></div></div></div>
         </div>
       </div>
 
@@ -314,10 +412,10 @@ footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--line);fo
           <span class="sk-ico">🛠</span><span class="sk-ttl">Languages & Data</span><span class="sk-arr">›</span>
         </div>
         <div class="sk-body">
-          <div class="sk-item"><span class="sk-d"></span>JavaScript ES6+</div>
-          <div class="sk-item"><span class="sk-d"></span>XML</div>
-          <div class="sk-item"><span class="sk-d"></span>JSON</div>
-          <div class="sk-item"><span class="sk-d"></span>YAML</div>
+          <div class="sk-item"><span class="sk-d"></span>JavaScript ES6+<div class="sk-bar-wrap"><div class="sk-bar" data-w="88"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>XML<div class="sk-bar-wrap"><div class="sk-bar" data-w="90"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>JSON<div class="sk-bar-wrap"><div class="sk-bar" data-w="92"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>YAML<div class="sk-bar-wrap"><div class="sk-bar" data-w="80"></div></div></div>
         </div>
       </div>
 
@@ -326,12 +424,12 @@ footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--line);fo
           <span class="sk-ico">🚀</span><span class="sk-ttl">DevOps & Monitoring</span><span class="sk-arr">›</span>
         </div>
         <div class="sk-body">
-          <div class="sk-item"><span class="sk-d"></span>Azure DevOps</div>
-          <div class="sk-item"><span class="sk-d"></span>GitLab / Bitbucket</div>
-          <div class="sk-item"><span class="sk-d"></span>CI/CD Pipelines</div>
-          <div class="sk-item"><span class="sk-d"></span>Datadog</div>
-          <div class="sk-item"><span class="sk-d"></span>Kibana / Splunk</div>
-          <div class="sk-item"><span class="sk-d"></span>Postman / SoapUI</div>
+          <div class="sk-item"><span class="sk-d"></span>Azure DevOps<div class="sk-bar-wrap"><div class="sk-bar" data-w="85"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>GitLab / Bitbucket<div class="sk-bar-wrap"><div class="sk-bar" data-w="82"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>CI/CD Pipelines<div class="sk-bar-wrap"><div class="sk-bar" data-w="83"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>Datadog<div class="sk-bar-wrap"><div class="sk-bar" data-w="80"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>Kibana / Splunk<div class="sk-bar-wrap"><div class="sk-bar" data-w="78"></div></div></div>
+          <div class="sk-item"><span class="sk-d"></span>Postman / SoapUI<div class="sk-bar-wrap"><div class="sk-bar" data-w="88"></div></div></div>
         </div>
       </div>
 
@@ -561,12 +659,31 @@ footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--line);fo
     <p class="csub">Actively seeking full-time, direct employment as an Apigee Developer or API Integration Engineer in Bangalore. Let's talk.</p>
     <div class="ccards">
       <a href="mailto:anil039497@gmail.com" class="cc"><div class="cci">✉️</div><div><div class="ccl">Email</div><div class="ccv">anil039497@gmail.com</div></div></a>
-      <a href="tel:+91900088904" class="cc"><div class="cci">📞</div><div><div class="ccl">Phone</div><div class="ccv">+91 9000889094</div></div></a>
+      <a href="tel:+919000889094" class="cc"><div class="cci">📞</div><div><div class="ccl">Phone</div><div class="ccv">+91 9000889094</div></div></a>
       <a href="https://www.linkedin.com/in/anil-kumar-m-93931627a/" target="_blank" class="cc"><div class="cci">💼</div><div><div class="ccl">LinkedIn</div><div class="ccv">anil-kumar-m</div></div></a>
       <a href="https://anilkumarm.netlify.app" target="_blank" class="cc"><div class="cci">🌐</div><div><div class="ccl">Portfolio</div><div class="ccv">anilkumarm.netlify.app</div></div></a>
       <div class="cc"><div class="cci">📍</div><div><div class="ccl">Location</div><div class="ccv">Bangalore, India</div></div></div>
     </div>
     <div class="avail"><div class="adot"></div>Available for full-time roles · Immediate joiner</div>
+
+    <!-- CONTACT FORM -->
+    <div class="contact-form-wrap">
+      <div class="cf-grid">
+        <div class="cf-field">
+          <label class="cf-label">Your Name</label>
+          <input class="cf-input" id="cf-name" type="text" placeholder="John Smith"/>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label">Your Email</label>
+          <input class="cf-input" id="cf-email" type="email" placeholder="john@company.com"/>
+        </div>
+        <div class="cf-field full">
+          <label class="cf-label">Message</label>
+          <textarea class="cf-textarea" id="cf-msg" placeholder="Hi Anil, I'd like to discuss an opportunity..."></textarea>
+        </div>
+      </div>
+      <button class="cf-btn" id="cf-send" onclick="sendForm()">Send Message ↗</button>
+    </div>
   </div>
 </div>
 
@@ -698,6 +815,231 @@ function switchExp(idx,tab){
   window.addEventListener('resize',resize,{passive:true});
   draw();
 })();
+/* ── TYPING EFFECT ── */
+(function(){
+  const el=document.getElementById('typed');
+  if(!el)return;
+  const phrases=[
+    'Apigee X & Edge Developer',
+    'API Integration Engineer',
+    'Enterprise Middleware Architect',
+    'OAuth 2.0 & JWT Security Expert',
+    'Workday · Oracle · ServiceNow'
+  ];
+  let pi=0,ci=0,deleting=false,paused=false;
+  function type(){
+    if(paused)return;
+    const phrase=phrases[pi];
+    if(!deleting){
+      el.textContent=phrase.slice(0,ci+1);
+      ci++;
+      if(ci===phrase.length){paused=true;setTimeout(()=>{paused=false;deleting=true;setTimeout(type,80)},2200);return;}
+    } else {
+      el.textContent=phrase.slice(0,ci-1);
+      ci--;
+      if(ci===0){deleting=false;pi=(pi+1)%phrases.length;setTimeout(type,400);return;}
+    }
+    setTimeout(type,deleting?45:85);
+  }
+  setTimeout(type,1400);
+})();
+
+/* ── STATS COUNTER ── */
+(function(){
+  const stats=document.querySelectorAll('.sn[data-target]');
+  let started=false;
+  function runCounters(){
+    if(started)return;
+    started=true;
+    stats.forEach(el=>{
+      const target=parseFloat(el.dataset.target);
+      const suffix=el.dataset.suffix||'';
+      const isFloat=target%1!==0;
+      const duration=1800;
+      const steps=60;
+      const inc=target/steps;
+      let current=0,step=0;
+      const timer=setInterval(()=>{
+        step++;
+        current=Math.min(inc*step,target);
+        const display=isFloat?current.toFixed(1):Math.floor(current);
+        el.innerHTML=display+'<em>'+suffix+'</em>';
+        if(step>=steps){
+          el.innerHTML=target+(isFloat?'':'')+'<em>'+suffix+'</em>';
+          clearInterval(timer);
+        }
+      },duration/steps);
+    });
+  }
+  /* trigger when stats scroll into view */
+  const ob=new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting)runCounters();
+  },{threshold:.3});
+  const statsEl=document.querySelector('.hstats');
+  if(statsEl)ob.observe(statsEl);
+})();
+
+/* ═══ #4 — CURSOR GLOW TRAIL ═══ */
+(function(){
+  const trail=[];
+  const N=18;
+  for(let i=0;i<N;i++){
+    const d=document.createElement('div');
+    d.className='trail-dot';
+    d.style.cssText=`opacity:${(1-i/N)*.6};width:${8-i*.3}px;height:${8-i*.3}px;background:${i<6?'var(--cyan)':'rgba(0,212,255,'+(1-i/N*.8)+')'}`;
+    document.body.appendChild(d);
+    trail.push({el:d,x:0,y:0});
+  }
+  let mx=0,my=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+  (function anim(){
+    trail[0].x+=(mx-trail[0].x)*.35;
+    trail[0].y+=(my-trail[0].y)*.35;
+    for(let i=1;i<N;i++){
+      trail[i].x+=(trail[i-1].x-trail[i].x)*.45;
+      trail[i].y+=(trail[i-1].y-trail[i].y)*.45;
+    }
+    trail.forEach(t=>{t.el.style.left=t.x+'px';t.el.style.top=t.y+'px'});
+    requestAnimationFrame(anim);
+  })();
+})();
+
+/* ═══ #5 — SKILL PROGRESS BARS ═══ */
+(function(){
+  const barObs=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.querySelectorAll('.sk-bar[data-w]').forEach(bar=>{
+          setTimeout(()=>{bar.style.width=bar.dataset.w+'%'},150);
+        });
+      }
+    });
+  },{threshold:.1});
+  document.querySelectorAll('.sk-acc').forEach(acc=>barObs.observe(acc));
+  /* also trigger on accordion open */
+  document.querySelectorAll('.sk-head').forEach(head=>{
+    head.addEventListener('click',()=>{
+      const acc=head.closest('.sk-acc');
+      setTimeout(()=>{
+        if(acc.classList.contains('open')){
+          acc.querySelectorAll('.sk-bar[data-w]').forEach(bar=>{
+            bar.style.width='0';
+            setTimeout(()=>{bar.style.width=bar.dataset.w+'%'},50);
+          });
+        }
+      },50);
+    });
+  });
+})();
+
+/* ═══ #6 — NAV SLIDING PILL ═══ */
+(function(){
+  const pill=document.getElementById('nav-pill');
+  const ul=document.getElementById('nav-ul');
+  if(!pill||!ul)return;
+  function movePill(link){
+    const ulRect=ul.getBoundingClientRect();
+    const lRect=link.getBoundingClientRect();
+    pill.style.left=(lRect.left-ulRect.left-8)+'px';
+    pill.style.width=(lRect.width+16)+'px';
+  }
+  const links=ul.querySelectorAll('a');
+  links.forEach(a=>{
+    a.addEventListener('mouseenter',()=>movePill(a));
+  });
+  ul.addEventListener('mouseleave',()=>{
+    const act=ul.querySelector('a.act');
+    if(act)movePill(act);else pill.style.width='0';
+  });
+  /* init pill on active link */
+  const initAct=ul.querySelector('a.act');
+  if(initAct)setTimeout(()=>movePill(initAct),100);
+})();
+
+/* ═══ #7 — 3D TILT PROJECT CARDS ═══ */
+(function(){
+  document.querySelectorAll('.pj').forEach(card=>{
+    const glass=card.querySelector('.pj-glass');
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=((e.clientX-r.left)/r.width-.5)*18;
+      const y=((e.clientY-r.top)/r.height-.5)*-18;
+      card.style.transform=`perspective(700px) rotateX(${y}deg) rotateY(${x}deg) translateY(-6px)`;
+      card.style.boxShadow=`${-x*.8}px ${y*.8}px 32px rgba(0,212,255,.15)`;
+      if(glass){glass.style.transform=`translateX(${-x*.4}px) translateY(${y*.4}px)`;}
+    });
+    card.addEventListener('mouseleave',()=>{
+      card.style.transform='perspective(700px) rotateX(0) rotateY(0) translateY(0)';
+      card.style.boxShadow='';
+      if(glass)glass.style.transform='';
+    });
+  });
+})();
+
+/* ═══ #8 — CONTACT FORM (EmailJS) ═══ */
+(function(){
+  /* Init EmailJS — replace with your own Public Key from emailjs.com */
+  if(window.emailjs){
+    emailjs.init({publicKey:'YOUR_PUBLIC_KEY'});
+  }
+})();
+
+function sendForm(){
+  const name=document.getElementById('cf-name').value.trim();
+  const email=document.getElementById('cf-email').value.trim();
+  const msg=document.getElementById('cf-msg').value.trim();
+  const btn=document.getElementById('cf-send');
+  const status=document.getElementById('cf-status');
+
+  if(!name||!email||!msg){
+    status.textContent='⚠ Please fill in all fields.';
+    status.className='cf-status err';
+    return;
+  }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    status.textContent='⚠ Please enter a valid email.';
+    status.className='cf-status err';
+    return;
+  }
+
+  btn.disabled=true;
+  btn.textContent='Sending...';
+  status.textContent='';
+
+  /* If EmailJS is configured, use it — otherwise open mailto fallback */
+  if(window.emailjs&&emailjs._options&&emailjs._options.publicKey!=='YOUR_PUBLIC_KEY'){
+    emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID',{
+      from_name:name,
+      from_email:email,
+      message:msg,
+      to_name:'Anil Kumar M'
+    }).then(()=>{
+      status.textContent='✓ Message sent! I\'ll get back to you soon.';
+      status.className='cf-status ok';
+      btn.textContent='Send Message ↗';
+      btn.disabled=false;
+      document.getElementById('cf-name').value='';
+      document.getElementById('cf-email').value='';
+      document.getElementById('cf-msg').value='';
+    }).catch(()=>{
+      fallbackMailto(name,email,msg,btn,status);
+    });
+  } else {
+    fallbackMailto(name,email,msg,btn,status);
+  }
+}
+
+function fallbackMailto(name,email,msg,btn,status){
+  const subject=encodeURIComponent('Portfolio Inquiry from '+name);
+  const body=encodeURIComponent('From: '+name+' ('+email+')\n\n'+msg);
+  window.location.href='mailto:anil039497@gmail.com?subject='+subject+'&body='+body;
+  status.textContent='✓ Opening your email client...';
+  status.className='cf-status ok';
+  btn.textContent='Send Message ↗';
+  btn.disabled=false;
+}
+
+/* ── NAV ACTIVE ── */
 const nls=document.querySelectorAll('.nav-ul a');
 window.addEventListener('scroll',()=>{
   let c='';
@@ -705,7 +1047,20 @@ window.addEventListener('scroll',()=>{
     const el=document.getElementById(id);
     if(el&&window.scrollY>=el.offsetTop-140)c=id;
   });
-  nls.forEach(a=>a.classList.toggle('act',a.getAttribute('href')==='#'+c));
+  nls.forEach(a=>{
+    const isAct=a.getAttribute('href')==='#'+c;
+    a.classList.toggle('act',isAct);
+    if(isAct){
+      const pill=document.getElementById('nav-pill');
+      const ul=document.getElementById('nav-ul');
+      if(pill&&ul){
+        const ulR=ul.getBoundingClientRect();
+        const aR=a.getBoundingClientRect();
+        pill.style.left=(aR.left-ulR.left-8)+'px';
+        pill.style.width=(aR.width+16)+'px';
+      }
+    }
+  });
 },{passive:true});
 </script>
 </body>
