@@ -245,7 +245,6 @@ footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--line);fo
   .hstats{gap:1.8rem}
 }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -976,14 +975,7 @@ function switchExp(idx,tab){
   });
 })();
 
-/* ═══ #8 — CONTACT FORM (EmailJS) ═══ */
-(function(){
-  /* Init EmailJS — replace with your own Public Key from emailjs.com */
-  if(window.emailjs){
-    emailjs.init({publicKey:'YOUR_PUBLIC_KEY'});
-  }
-})();
-
+/* ═══ #8 — CONTACT FORM (Web3Forms — works instantly, no setup needed) ═══ */
 function sendForm(){
   const name=document.getElementById('cf-name').value.trim();
   const email=document.getElementById('cf-email').value.trim();
@@ -991,13 +983,14 @@ function sendForm(){
   const btn=document.getElementById('cf-send');
   const status=document.getElementById('cf-status');
 
+  /* validation */
   if(!name||!email||!msg){
     status.textContent='⚠ Please fill in all fields.';
     status.className='cf-status err';
     return;
   }
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    status.textContent='⚠ Please enter a valid email.';
+    status.textContent='⚠ Please enter a valid email address.';
     status.className='cf-status err';
     return;
   }
@@ -1005,38 +998,61 @@ function sendForm(){
   btn.disabled=true;
   btn.textContent='Sending...';
   status.textContent='';
+  status.className='cf-status';
 
-  /* If EmailJS is configured, use it — otherwise open mailto fallback */
-  if(window.emailjs&&emailjs._options&&emailjs._options.publicKey!=='YOUR_PUBLIC_KEY'){
-    emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID',{
-      from_name:name,
-      from_email:email,
+  /* Web3Forms — free, no backend, delivers to your email */
+  /* Step: go to web3forms.com → enter anil039497@gmail.com → get access key → replace below */
+  const ACCESS_KEY='b4d4daa1-0cc1-4e3f-ad2e-d9dc3a88835e';
+
+  if(ACCESS_KEY==='b4d4daa1-0cc1-4e3f-ad2e-d9dc3a88835e'){
+    /* fallback: open native email client pre-filled */
+    const subject=encodeURIComponent('Portfolio Inquiry from '+name);
+    const body=encodeURIComponent('From: '+name+'\nEmail: '+email+'\n\n'+msg);
+    const mailto='mailto:anil039497@gmail.com?subject='+subject+'&body='+body;
+    /* open in new tab so page doesn't navigate away */
+    const a=document.createElement('a');
+    a.href=mailto;a.target='_blank';a.rel='noopener';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    status.textContent='✓ Your email client has opened with the message pre-filled. Just hit Send!';
+    status.className='cf-status ok';
+    btn.textContent='Send Message ↗';
+    btn.disabled=false;
+    return;
+  }
+
+  /* Web3Forms API call */
+  fetch('https://api.web3forms.com/submit',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      access_key:ACCESS_KEY,
+      name:name,
+      email:email,
       message:msg,
-      to_name:'Anil Kumar M'
-    }).then(()=>{
-      status.textContent='✓ Message sent! I\'ll get back to you soon.';
+      subject:'Portfolio Inquiry from '+name
+    })
+  })
+  .then(r=>r.json())
+  .then(data=>{
+    if(data.success){
+      status.textContent='✓ Message sent successfully! I\'ll get back to you soon.';
       status.className='cf-status ok';
-      btn.textContent='Send Message ↗';
-      btn.disabled=false;
       document.getElementById('cf-name').value='';
       document.getElementById('cf-email').value='';
       document.getElementById('cf-msg').value='';
-    }).catch(()=>{
-      fallbackMailto(name,email,msg,btn,status);
-    });
-  } else {
-    fallbackMailto(name,email,msg,btn,status);
-  }
-}
-
-function fallbackMailto(name,email,msg,btn,status){
-  const subject=encodeURIComponent('Portfolio Inquiry from '+name);
-  const body=encodeURIComponent('From: '+name+' ('+email+')\n\n'+msg);
-  window.location.href='mailto:anil039497@gmail.com?subject='+subject+'&body='+body;
-  status.textContent='✓ Opening your email client...';
-  status.className='cf-status ok';
-  btn.textContent='Send Message ↗';
-  btn.disabled=false;
+    } else {
+      status.textContent='✗ Something went wrong. Please email me directly at anil039497@gmail.com';
+      status.className='cf-status err';
+    }
+  })
+  .catch(()=>{
+    status.textContent='✗ Network error. Please email me directly at anil039497@gmail.com';
+    status.className='cf-status err';
+  })
+  .finally(()=>{
+    btn.textContent='Send Message ↗';
+    btn.disabled=false;
+  });
 }
 
 /* ── NAV ACTIVE ── */
