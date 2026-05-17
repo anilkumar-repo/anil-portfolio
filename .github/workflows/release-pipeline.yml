@@ -13,9 +13,6 @@ jobs:
   deploy-prod:
     name: Deploy Production
 
-    environment:
-      name: prod
-
     uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/deploy.yml@main
 
     with:
