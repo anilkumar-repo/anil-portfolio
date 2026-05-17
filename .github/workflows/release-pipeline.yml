@@ -11,15 +11,20 @@ permissions:
 jobs:
 
   deploy-prod:
-    name: Deploy Production
-    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/deploy.yml@main
-    with:
-      deploy_provider: netlify
-      environment: prod
-      publish_dir: .
-    secrets:
-      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROD_SITE_ID }}
+  name: Deploy Production
+  environment:
+    name: prod
+
+  uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/deploy.yml@main
+
+  with:
+    deploy_provider: netlify
+    environment: prod
+    publish_dir: .
+
+  secrets:
+    NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+    NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROD_SITE_ID }}
 
   rollback-prod:
     name: Rollback Production

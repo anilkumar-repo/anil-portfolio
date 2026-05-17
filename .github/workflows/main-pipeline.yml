@@ -7,8 +7,8 @@ on:
 
 jobs:
 
-  deploy-dev:
-    name: Deploy Dev
+  environment:
+    name: dev
     uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/deploy.yml@main
     with:
       deploy_provider: netlify
