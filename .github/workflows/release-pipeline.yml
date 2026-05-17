@@ -11,41 +11,51 @@ permissions:
 jobs:
 
   deploy-prod:
-  name: Deploy Production
-  environment:
-    name: prod
+    name: Deploy Production
 
-  uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/deploy.yml@main
+    environment:
+      name: prod
 
-  with:
-    deploy_provider: netlify
-    environment: prod
-    publish_dir: .
+    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/deploy.yml@main
 
-  secrets:
-    NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-    NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROD_SITE_ID }}
+    with:
+      deploy_provider: netlify
+      environment: prod
+      publish_dir: .
+
+    secrets:
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROD_SITE_ID }}
 
   rollback-prod:
     name: Rollback Production
+
     if: ${{ always() && needs.deploy-prod.result == 'failure' }}
+
     needs: deploy-prod
+
     uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/rollback.yml@main
+
     with:
       deploy_provider: netlify
       environment: prod
 
   create-release:
     name: Create GitHub Release
+
     if: ${{ needs.deploy-prod.result == 'success' }}
+
     needs: deploy-prod
+
     runs-on: ubuntu-latest
 
     steps:
       - name: Create Release
         uses: softprops/action-gh-release@v2
+
         with:
           generate_release_notes: true
+
           body: |
             ## Enterprise Portfolio Release
 
