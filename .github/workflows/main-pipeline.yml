@@ -8,8 +8,11 @@ on:
 jobs:
 
   deploy-dev:
-    name: Deploy to Dev
-    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/deploy-dev.yml@main
+  name: Deploy to Dev
+  uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/deploy-dev.yml@main
+  secrets:
+    NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+    NETLIFY_DEV_SITE_ID: ${{ secrets.NETLIFY_DEV_SITE_ID }}
 
   validate-dev:
     name: Validate Dev
@@ -17,7 +20,10 @@ jobs:
     uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/validate-dev.yml@main
 
   rollback-dev:
-    name: Rollback Dev
-    if: failure()
-    needs: validate-dev
-    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/rollback-dev.yml@main
+  name: Rollback Dev
+  if: ${{ always() && needs.validate-dev.result == 'failure' }}
+  needs: validate-dev
+  uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/rollback-dev.yml@main
+  secrets:
+    NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+    NETLIFY_DEV_SITE_ID: ${{ secrets.NETLIFY_DEV_SITE_ID }}

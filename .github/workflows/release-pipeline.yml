@@ -11,14 +11,20 @@ permissions:
 jobs:
 
   deploy-prod:
-    name: Deploy to Production
-    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/deploy-prod.yml@main
+  name: Deploy to Production
+  uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/deploy-prod.yml@main
+  secrets:
+    NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+    NETLIFY_PROD_SITE_ID: ${{ secrets.NETLIFY_PROD_SITE_ID }}
 
   rollback-prod:
-    name: Rollback Production
-    if: ${{ always() && needs.deploy-prod.result == 'failure' }}
-    needs: deploy-prod
-    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/rollback-prod.yml@main
+  name: Rollback Production
+  if: ${{ always() && needs.deploy-prod.result == 'failure' }}
+  needs: deploy-prod
+  uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/rollback-prod.yml@main
+  secrets:
+    NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+    NETLIFY_PROD_SITE_ID: ${{ secrets.NETLIFY_PROD_SITE_ID }}
 
   create-release:
     name: Create GitHub Release
