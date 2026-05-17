@@ -8,22 +8,26 @@ on:
 jobs:
 
   deploy-dev:
-    name: Deploy to Dev
-    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/deploy-dev.yml@main
+    name: Deploy Dev
+    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/deploy.yml@main
+    with:
+      deploy_provider: netlify
+      environment: dev
+      publish_dir: .
     secrets:
       NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      NETLIFY_DEV_SITE_ID: ${{ secrets.NETLIFY_DEV_SITE_ID }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_DEV_SITE_ID }}
 
   validate-dev:
     name: Validate Dev
     needs: deploy-dev
-    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/validate-dev.yml@main
+    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/validate.yml@main
 
-  # rollback-dev:
-  # name: Rollback Dev
-  # if: ${{ always() && needs.validate-dev.result == 'failure' }}
-  # needs: validate-dev
-  # uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/rollback-dev.yml@main
-  # secrets:
-  #   NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-  #   NETLIFY_DEV_SITE_ID: ${{ secrets.NETLIFY_DEV_SITE_ID }}
+  rollback-dev:
+    name: Rollback Dev
+    if: ${{ always() && needs.validate-dev.result == 'failure' }}
+    needs: validate-dev
+    uses: anilkumar-repo/enterprise-ci-cd-workflows/.github/workflows/rollback.yml@main
+    with:
+      deploy_provider: netlify
+      environment: dev
