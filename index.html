@@ -23,21 +23,21 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--white);font-family:var(--fbody);overflow-x:hidden;cursor:none}
 
-/* ── INTRO LOADER (name draw-on) ── */
-.loader{position:fixed;inset:0;z-index:99999;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .8s ease,visibility .8s ease}
+/* ── INTRO LOADER (terminal) ── */
+.loader{position:fixed;inset:0;z-index:99999;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .7s ease,visibility .7s ease}
 .loader.done{opacity:0;visibility:hidden}
-.loader-inner{text-align:center;padding:2rem;width:min(800px,92vw)}
-.draw-svg{width:100%;height:auto;display:block;overflow:visible}
-.draw-text{font-family:var(--fhead);font-weight:800;font-size:96px;letter-spacing:-2px;
-  fill:var(--cyan);fill-opacity:0;
-  stroke:var(--cyan);stroke-width:1.4;
-  stroke-dasharray:1200;stroke-dashoffset:1200;
-  filter:drop-shadow(0 0 18px rgba(240,193,75,.35));
-  animation:drawName 1.9s 0.2s cubic-bezier(.6,0,.2,1) forwards, fillName .8s 1.7s ease forwards}
-@keyframes drawName{to{stroke-dashoffset:0}}
-@keyframes fillName{to{fill-opacity:1}}
-.loader-role{font-family:var(--fmono,monospace);font-size:.72rem;letter-spacing:.3em;color:var(--cyan);margin-top:1rem;opacity:0;animation:lfade .7s 2.1s forwards}
-@keyframes lfade{to{opacity:1}}
+.term{width:min(560px,90vw);background:var(--bg2);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 40px rgba(240,193,75,.06)}
+.term-bar{display:flex;align-items:center;gap:.5rem;padding:.8rem 1rem;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
+.term-dot{width:11px;height:11px;border-radius:50%}
+.term-dot.r{background:#ff5f56}.term-dot.y{background:#ffbd2e}.term-dot.g{background:#27c93f}
+.term-title{font-family:var(--fmono);font-size:.66rem;color:var(--muted2);margin-left:.6rem;letter-spacing:.05em}
+.term-body{padding:1.4rem 1.4rem 1.8rem;font-family:var(--fmono);font-size:.86rem;line-height:1.9;min-height:200px}
+.tline{white-space:pre-wrap;word-break:break-word}
+.tline .prompt{color:var(--cyan)}
+.tline .ok{color:var(--green)}
+.tline .dim{color:var(--muted)}
+.term-cursor{display:inline-block;width:8px;height:1.05em;background:var(--cyan);vertical-align:-2px;margin-left:2px;animation:tblink 1s steps(1) infinite}
+@keyframes tblink{50%{opacity:0}}
 
 /* CURSOR — old lag-trail */
 .cur{width:12px;height:12px;background:var(--cyan);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen}
@@ -268,13 +268,14 @@ footer{text-align:center;padding:2.5rem 2rem;border-top:1px solid var(--line);fo
 </head>
 <body>
 
-<!-- INTRO LOADER -->
+<!-- INTRO LOADER (terminal) -->
 <div class="loader" id="loader">
-  <div class="loader-inner">
-    <svg class="draw-svg" viewBox="0 0 800 200" id="drawSvg" aria-label="Anil Kumar M">
-      <text x="400" y="105" class="draw-text" text-anchor="middle">ANIL KUMAR M</text>
-    </svg>
-    <div class="loader-role" id="loaderRole">SENIOR APIGEE DEVELOPER</div>
+  <div class="term">
+    <div class="term-bar">
+      <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+      <span class="term-title">anil_kumar_m — portfolio.sh</span>
+    </div>
+    <div class="term-body" id="termBody"></div>
   </div>
 </div>
 
@@ -1106,16 +1107,48 @@ window.addEventListener('scroll',()=>{
   });
 },{passive:true});
 
-/* ── INTRO LOADER (name draw-on) ── */
+/* ── INTRO LOADER (terminal) ── */
 (function(){
+  const body=document.getElementById('termBody');
   const loader=document.getElementById('loader');
-  if(!loader)return;
+  if(!loader||!body)return;
   document.body.style.overflow='hidden';
-  /* draw (1.9s) + fill + role fade ≈ 3s, then lift the curtain */
-  setTimeout(()=>{
-    loader.classList.add('done');
-    document.body.style.overflow='';
-  },3000);
+
+  const lines=[
+    {t:'> initializing anil_kumar.portfolio', cls:'prompt'},
+    {t:'  loading modules ............ ', cls:'dim', append:{t:'done ✓', cls:'ok'}},
+    {t:'  establishing API gateway ... ', cls:'dim', append:{t:'connected ✓', cls:'ok'}},
+    {t:'  rendering experience ....... ', cls:'dim', append:{t:'ready ✓', cls:'ok'}},
+    {t:'> welcome. building better integrations.', cls:'prompt'},
+  ];
+
+  let li=0;
+  function typeLine(){
+    if(li>=lines.length){ finish(); return; }
+    const spec=lines[li];
+    const div=document.createElement('div');div.className='tline';
+    const span=document.createElement('span');span.className=spec.cls;div.appendChild(span);
+    const cur=document.createElement('span');cur.className='term-cursor';div.appendChild(cur);
+    body.appendChild(div);
+    let ci=0;
+    const speed=(li===0||li===lines.length-1)?34:16;
+    const tick=setInterval(()=>{
+      span.textContent=spec.t.slice(0,ci+1);ci++;
+      if(ci>=spec.t.length){
+        clearInterval(tick);
+        if(spec.append){const ap=document.createElement('span');ap.className=spec.append.cls;span.parentNode.insertBefore(ap,cur);ap.textContent=spec.append.t;}
+        cur.remove();li++;
+        setTimeout(typeLine, li===lines.length-1?260:160);
+      }
+    },speed);
+  }
+  function finish(){
+    setTimeout(()=>{
+      loader.classList.add('done');
+      document.body.style.overflow='';
+    },550);
+  }
+  setTimeout(typeLine,400);
 })();
 
 /* ── SCROLL REVEALS ── */
